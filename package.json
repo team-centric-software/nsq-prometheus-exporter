@@ -1,0 +1,20 @@
+{
+  "name": "nsq-prometheus-exporter",
+  "version": "0.2.0",
+  "description": "Given a list of nsqlookupd http endpoint, this service periodically scrapes all discovered nsqd nodes and exports topic/channel metrics for prometheus",
+  "main": "nsq-prometheus-exporter.js",
+  "scripts": {
+    "watch": "node-dev ."
+  },
+  "keywords": [],
+  "author": "erdii <erdiicodes@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "convict": "^4.4.1",
+    "nsq-watch": "^1.0.0",
+    "prom-client": "^11.3.0"
+  },
+  "devDependencies": {
+    "node-dev": "^3.1.3"
+  }
+}
