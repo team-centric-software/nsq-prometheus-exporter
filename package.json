@@ -1,6 +1,6 @@
 {
   "name": "nsq-prometheus-exporter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Given a list of nsqlookupd http endpoint, this service periodically scrapes all discovered nsqd nodes and exports topic/channel metrics for prometheus",
   "main": "nsq-prometheus-exporter.js",
   "scripts": {
