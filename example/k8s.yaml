@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nsq-prometheus-exporter
+  namespace: default
+  labels:
+    app: nsq-prometheus-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nsq-prometheus-exporter
+  template:
+    metadata:
+      labels:
+        app: nsq-prometheus-exporter
+    spec:
+      containers:
+      - name: nsq-prometheus-exporter
+        image: tcsmuc/nsq-prometheus-exporter:0.2.2
+        env:
+          - name: LOOKUPD_HTTP_ADDRESSES
+            value: the-only-lookupd:4161
+        ports:
+          - containerPort: 3000
+            name: http
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "50Mi"
+          limits:
+            cpu: "5m"
+            memory: "75Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nsq-prometheus-exporter
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3000
+    name: http
+  selector:
+    app: nsq-prometheus-exporter

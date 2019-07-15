@@ -13,7 +13,7 @@ name | type |description
 --- | --- | ---
 `nsq_nsqd_node_count` | gauge | how many nsqd instances were discovered from lookupd queries?
 `nsq_watcher_error_count` | counter | how many error events have been fired from [nsq-watch](https://www.npmjs.com/package/nsq-watch)?
-`nsq_depth{topic="$TOPIC",channel="$CHANNEL"` | gauge | message queue depth per topic and channel
+`nsq_depth{topic="$TOPIC",channel="$CHANNEL"}` | gauge | message queue depth per topic and channel
 
 
 ### Configuration
@@ -39,3 +39,9 @@ It can also contain only a single item: `LOOKUPD_HTTP_ADDRESSES=the-only-lookupd
 		nsq-prometheus-exporter:latest
 	```
 * to build and push at the same time: `make`
+
+
+### Kubernetes
+
+* edit `example/k8s.yaml` and fill in the correct values (envvars)
+* apply with `kubectl apply -f example/k8s.yaml`
