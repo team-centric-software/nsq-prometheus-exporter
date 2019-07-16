@@ -7,12 +7,14 @@ Uses [nsq-watch](https://www.npmjs.com/package/nsq-watch) internally!
 
 ### Metrics
 
-Only 3 metrics get exported:
+Only a handful of metrics gets exported:
 
 name | type |description
 --- | --- | ---
 `nsq_nsqd_node_count` | gauge | how many nsqd instances were discovered from lookupd queries?
 `nsq_watcher_error_count` | counter | how many error events have been fired from [nsq-watch](https://www.npmjs.com/package/nsq-watch)?
+`nsq_topic_depth{topic="$TOPIC",node="$NODE"}` | gauge | Depth of a specific nsq topic on a specific nsqd, this occures when there is no channel to receive published messages
+`nsq_message_count{topic="$TOPIC",node="$NODE"}` | gauge | Message count of a specific nsq topic on a specific nsqd
 `nsq_depth{topic="$TOPIC",channel="$CHANNEL"}` | gauge | message queue depth per topic and channel
 
 
@@ -27,9 +29,9 @@ It can also contain only a single item: `LOOKUPD_HTTP_ADDRESSES=the-only-lookupd
 ### Docker
 
 * edit `deploy.json` and fill in the correct values
-* to build the container: `make build`
-* to push the container: `make push`
-* to run the container:
+* build the docker image: `make build`
+* push the docker image: `make push`
+* run inside a docker container:
 	```
 	docker run -d \
 		-p 3000:3000 \
@@ -38,7 +40,7 @@ It can also contain only a single item: `LOOKUPD_HTTP_ADDRESSES=the-only-lookupd
 		--name nsq-prometheus-exporter \
 		nsq-prometheus-exporter:latest
 	```
-* to build and push at the same time: `make`
+* build and push at the same time: `make`
 
 
 ### Kubernetes

@@ -15,7 +15,6 @@ const state = {
 	nodes: new Map(),
 	topics: new Map(),
 	channels: new Map(),
-
 	metrics: {
 		nsqdNodeGauge: new prometheus.Gauge({
 			name: "nsq_nsqd_node_count",
