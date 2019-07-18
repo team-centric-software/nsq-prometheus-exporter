@@ -68,7 +68,7 @@ const watcher = new NsqWatch({
 	lookupdPollInterval: config.get("lookupdPollInterval"),
 });
 
-// set up node cleanup worker
+// set up cleanup worker
 setInterval(() => {
 	const now = Date.now();
 
