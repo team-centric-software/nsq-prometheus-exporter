@@ -37,7 +37,7 @@ const state = {
 		channelDepthGauge: new prometheus.Gauge({
 			name: "nsq_depth",
 			help: "Depth of a channel in a specific nsq topic, topics are distinguished by the label 'topic', channels by the label 'channel'",
-			labelNames: ["topic", "channel"],
+			labelNames: ["topic", "channel", "node"],
 		}),
 	},
 	loggers: {
@@ -190,11 +190,13 @@ watcher.on("topic-depth", (topic, depth, meta, nodeData) => {
 });
 
 // track message queue depth by nsq topic and channel via the nsq-watcher's "topic-channel-depth" event
-watcher.on("topic-channel-depth", (topic, _depth, channelDepths) => {
+watcher.on("topic-channel-depth", (topic, _depth, channelDepths, stats, nodeData) => {
 	// return early if ignoreEphemeral is enabled and topic name ends with "#ephemeral"
 	if (state.ephemeralRegex && state.ephemeralRegex.test(topic)) {
 		return;
 	}
+
+	const node = `${nodeData.broadcast_address}:${nodeData.http_port}`;
 
 	// track metrics for all channels in this topic
 	for (const channel of Object.keys(channelDepths)) {
@@ -209,6 +211,7 @@ watcher.on("topic-channel-depth", (topic, _depth, channelDepths) => {
 		state.metrics.channelDepthGauge.set({
 			topic,
 			channel,
+			node,
 		}, channelDepths[channel]);
 	}
 });
