@@ -10,7 +10,7 @@
   "author": "erdii <erdiicodes@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "convict": "^4.4.1",
+    "convict": "^6.2.2",
     "nsq-watch": "^1.0.0",
     "prom-client": "^11.3.0"
   },
